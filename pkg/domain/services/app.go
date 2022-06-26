@@ -6,24 +6,20 @@ import (
 )
 
 type AppInterface interface {
-	ListBeer() (beerList, error)
-	AddBeer(*BeerInfo) (string, error)
-	ReviewBeer(string, *ReviewInfo) (string, error)
-	ListReview(string) ([]*entity.Review, error)
+	ListVegetable() (VegetableList, error)
+	AddVegetable(*VegetableInfo) (string, error)
 }
 
 type appLogic struct {
-	beerRepo   entity.BeerRepo
-	userRepo   entity.UserRepo
-	reviewRepo entity.ReviewRepo
-	logger     *platlogger.Client
+	VegetableRepo entity.VegetableRepo
+	userRepo      entity.UserRepo
+	logger        *platlogger.Client
 }
 
-func NewAppLogic(beer entity.BeerRepo, user entity.UserRepo, review entity.ReviewRepo, logger *platlogger.Client) AppInterface {
+func NewAppLogic(vegetable entity.VegetableRepo, user entity.UserRepo, logger *platlogger.Client) AppInterface {
 	return &appLogic{
-		beerRepo:   beer,
-		userRepo:   user,
-		reviewRepo: review,
-		logger:     logger,
+		VegetableRepo: vegetable,
+		userRepo:      user,
+		logger:        logger,
 	}
 }

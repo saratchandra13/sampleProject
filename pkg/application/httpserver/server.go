@@ -40,10 +40,8 @@ func NewServer(appLogic services.AppInterface, logger *platlogger.Client) {
 	// inject routes
 	v1 := router.Group("/v1")
 	{
-		v1.GET("/listBeer", listBeer)
-		v1.POST("/addBeer", addBeer)
-		v1.POST("/reviewBeer", addReview)
-		v1.POST("/listReview", listReview)
+		v1.GET("/listVegetable", listVegetable)
+		v1.POST("/addVegetable", addVegetable)
 	}
 
 	srv = &http.Server{

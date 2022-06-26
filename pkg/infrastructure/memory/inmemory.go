@@ -8,70 +8,70 @@ import (
 )
 
 var (
-	errNoDataForBeerId = "no data present for beer id"
+	errNoDataForVegetableId = "no data present for vegetable id"
 )
 
-type BeerSchema struct {
+type VegetableSchema struct {
 	id            string
 	name          string
 	company       string
 	price         float64
-	alcoholAmount float64
+	calorieAmount float64
 }
 
 type inMemory struct {
-	store map[string]BeerSchema
+	store map[string]VegetableSchema
 }
 
-func NewMemoryStore() entity.BeerRepo {
-	return &inMemory{store: make(map[string]BeerSchema)}
+func NewMemoryStore() entity.VegetableRepo {
+	return &inMemory{store: make(map[string]VegetableSchema)}
 }
 
-func generateBeerId() uuid.UUID {
+func generateVegetableId() uuid.UUID {
 	return uuid.New()
 }
 
-func parseBeerMeta(beerMeta BeerSchema) *entity.Beer {
-	var parsedBeerMeta = &entity.Beer{
-		Id:             beerMeta.id,
-		Name:           beerMeta.name,
-		Manufacturer:   beerMeta.company,
-		Price:          beerMeta.price,
-		AlcoholContent: beerMeta.alcoholAmount,
+func parseVegetableMeta(VegetableMeta VegetableSchema) *entity.Vegetable {
+	var parsedVegetableMeta = &entity.Vegetable{
+		Id:           VegetableMeta.id,
+		Name:         VegetableMeta.name,
+		Seller:       VegetableMeta.company,
+		Price:        VegetableMeta.price,
+		CalorieCount: VegetableMeta.calorieAmount,
 	}
-	return parsedBeerMeta
+	return parsedVegetableMeta
 }
 
-func (mem *inMemory) AddBeer(beer *entity.Beer) (string, error) {
-	beerId := generateBeerId().String()
+func (mem *inMemory) AddVegetable(vegetable *entity.Vegetable) (string, error) {
+	VegetableId := generateVegetableId().String()
 
-	var beerMeta = BeerSchema{
-		id:            beerId,
-		name:          beer.Name,
-		company:       beer.Manufacturer,
-		price:         beer.Price,
-		alcoholAmount: beer.AlcoholContent,
+	var VegetableMeta = VegetableSchema{
+		id:            VegetableId,
+		name:          vegetable.Name,
+		company:       vegetable.Seller,
+		price:         vegetable.Price,
+		calorieAmount: vegetable.CalorieCount,
 	}
 
-	mem.store[beerId] = beerMeta
-	return beerId, nil
+	mem.store[VegetableId] = VegetableMeta
+	return VegetableId, nil
 }
 
-func (mem *inMemory) GetBeer(id string) (*entity.Beer, error) {
-	beerMeta, ok := mem.store[id]
+func (mem *inMemory) GetVegetable(id string) (*entity.Vegetable, error) {
+	VegetableMeta, ok := mem.store[id]
 	if !ok {
-		return nil, errors.New(errNoDataForBeerId)
+		return nil, errors.New(errNoDataForVegetableId)
 	}
 
-	var parsedBeerMeta = parseBeerMeta(beerMeta)
-	return parsedBeerMeta, nil
+	var parsedVegetableMeta = parseVegetableMeta(VegetableMeta)
+	return parsedVegetableMeta, nil
 }
 
-func (mem *inMemory) GetAllBeer() ([]*entity.Beer, error) {
-	var beerList = make([]*entity.Beer, 0)
+func (mem *inMemory) GetAllVegetable() ([]*entity.Vegetable, error) {
+	var VegetableList = make([]*entity.Vegetable, 0)
 	for _, value := range mem.store {
-		parsedBeerMeta := parseBeerMeta(value)
-		beerList = append(beerList, parsedBeerMeta)
+		parsedVegetableMeta := parseVegetableMeta(value)
+		VegetableList = append(VegetableList, parsedVegetableMeta)
 	}
-	return beerList, nil
+	return VegetableList, nil
 }

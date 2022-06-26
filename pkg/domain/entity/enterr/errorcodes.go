@@ -6,8 +6,8 @@ type CustomCode string
 
 type CustomError struct {
 	Code CustomCode
-	Msg string
-	Err error
+	Msg  string
+	Err  error
 }
 
 func (ce *CustomError) Error() string {
@@ -17,13 +17,7 @@ func (ce *CustomError) Error() string {
 func NewCustomError(code CustomCode, msg string, err error) *CustomError {
 	return &CustomError{
 		Code: code,
-		Msg: msg,
-		Err: err,
+		Msg:  msg,
+		Err:  err,
 	}
 }
-
-// custom codes
-const (
-	AddReviewFailed = CustomCode("errAddReviewFailed")
-	FetchReviewFailed = CustomCode("errFetchReviewFailed")
-)

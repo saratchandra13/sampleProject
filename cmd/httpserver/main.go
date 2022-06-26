@@ -5,7 +5,6 @@ import (
 	"github.com/saratchandra13/sampleProject/config"
 	"github.com/saratchandra13/sampleProject/pkg/application/httpserver"
 	"github.com/saratchandra13/sampleProject/pkg/domain/services"
-	"github.com/saratchandra13/sampleProject/pkg/infrastructure/dbmysql"
 	"github.com/saratchandra13/sampleProject/pkg/infrastructure/memory"
 	"github.com/saratchandra13/sampleProject/pkg/infrastructure/transport/rest"
 	"github.com/saratchandra13/sampleProject/third_party/assetmnger"
@@ -26,9 +25,8 @@ func main() {
 	logger, _ := platlogger.NewLogger(serviceName, config, platlogger.ConsoleOutput(true), platlogger.StackDriverOutput(true))
 	var memStore = memory.NewMemoryStore()
 	var userSvc = rest.NewUserSvc(config)
-	var reviewStore = dbmysql.NewReviewStore(config)
 
-	var appLogic services.AppInterface = services.NewAppLogic(memStore, userSvc, reviewStore, logger)
+	var appLogic services.AppInterface = services.NewAppLogic(memStore, userSvc, logger)
 
 	idleConnsClosed := make(chan struct{})
 	go func() {
@@ -38,7 +36,6 @@ func main() {
 
 		ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 		httpserver.Shutdown(ctx)
-		reviewStore.Close()
 		defer cancel()
 		close(idleConnsClosed)
 	}()
