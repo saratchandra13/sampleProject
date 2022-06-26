@@ -2,14 +2,14 @@ package main
 
 import (
 	"context"
-	"github.com/ShareChat/service-template/config"
-	"github.com/ShareChat/service-template/pkg/application/httpserver"
-	"github.com/ShareChat/service-template/pkg/domain/services"
-	"github.com/ShareChat/service-template/pkg/infrastructure/dbmysql"
-	"github.com/ShareChat/service-template/pkg/infrastructure/memory"
-	"github.com/ShareChat/service-template/pkg/infrastructure/transport/rest"
-	"github.com/ShareChat/service-template/third_party/assetmnger"
-	"github.com/ShareChat/service-template/third_party/platlogger"
+	"github.com/saratchandra13/sampleProject/config"
+	"github.com/saratchandra13/sampleProject/pkg/application/httpserver"
+	"github.com/saratchandra13/sampleProject/pkg/domain/services"
+	"github.com/saratchandra13/sampleProject/pkg/infrastructure/dbmysql"
+	"github.com/saratchandra13/sampleProject/pkg/infrastructure/memory"
+	"github.com/saratchandra13/sampleProject/pkg/infrastructure/transport/rest"
+	"github.com/saratchandra13/sampleProject/third_party/assetmnger"
+	"github.com/saratchandra13/sampleProject/third_party/platlogger"
 	"os"
 	"os/signal"
 	"syscall"
@@ -19,7 +19,6 @@ import (
 const (
 	serviceName = "service-template"
 )
-
 
 func main() {
 	assetMng := assetmnger.Initialize()

@@ -3,20 +3,19 @@ package rest
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/ShareChat/service-template/config"
-	"github.com/ShareChat/service-template/pkg/domain/entity"
 	"github.com/pkg/errors"
+	"github.com/saratchandra13/sampleProject/config"
+	"github.com/saratchandra13/sampleProject/pkg/domain/entity"
 	"io/ioutil"
 	"net/http"
 	"time"
 )
 
 const (
-	errFailedToGetUser = "failed to get user meta"
+	errFailedToGetUser       = "failed to get user meta"
 	errFailedToCreateRequest = "failed to create request"
-	errFailedToParseBody = "failed to parse response body"
+	errFailedToParseBody     = "failed to parse response body"
 )
-
 
 type UserSvc struct {
 	config *config.Store
@@ -52,7 +51,7 @@ func (us *UserSvc) GetUser(userId string) (*entity.User, error) {
 	byteData, err := ioutil.ReadAll(resp.Body)
 	fmt.Println("resp:", string(byteData))
 	if err != nil {
-		return nil, errors.Wrap(err,errFailedToParseBody)
+		return nil, errors.Wrap(err, errFailedToParseBody)
 	}
 	var respBody = userSvcRes{}
 

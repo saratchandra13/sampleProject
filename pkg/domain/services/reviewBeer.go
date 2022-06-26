@@ -2,15 +2,15 @@ package services
 
 import (
 	"fmt"
-	"github.com/ShareChat/service-template/pkg/domain/entity"
-	"github.com/ShareChat/service-template/pkg/domain/entity/enterr"
 	"github.com/pkg/errors"
+	"github.com/saratchandra13/sampleProject/pkg/domain/entity"
+	"github.com/saratchandra13/sampleProject/pkg/domain/entity/enterr"
 )
 
 const (
-	errUserNotVerified = "user not allowed to add review"
+	errUserNotVerified   = "user not allowed to add review"
 	errFailedToAddReview = "failed to add review"
-	fallbackReviewId = "1234"
+	fallbackReviewId     = "1234"
 )
 
 type ReviewInfo struct {

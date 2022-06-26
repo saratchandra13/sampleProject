@@ -2,9 +2,9 @@ package memory
 
 import (
 	_ "context"
-	"github.com/ShareChat/service-template/pkg/domain/entity"
 	"github.com/google/uuid"
 	"github.com/pkg/errors"
+	"github.com/saratchandra13/sampleProject/pkg/domain/entity"
 )
 
 var (

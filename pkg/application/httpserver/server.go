@@ -3,9 +3,9 @@ package httpserver
 import (
 	"context"
 	"fmt"
-	"github.com/ShareChat/service-template/pkg/domain/services"
-	"github.com/ShareChat/service-template/third_party/platlogger"
 	"github.com/gin-gonic/gin"
+	"github.com/saratchandra13/sampleProject/pkg/domain/services"
+	"github.com/saratchandra13/sampleProject/third_party/platlogger"
 	"log"
 	"net/http"
 )
@@ -16,11 +16,11 @@ const (
 
 type interactor struct {
 	appLogic services.AppInterface
-	logger *platlogger.Client
+	logger   *platlogger.Client
 }
 
 func (i *interactor) populate(appLogic services.AppInterface, logger *platlogger.Client) {
-	i.appLogic  = appLogic
+	i.appLogic = appLogic
 	i.logger = logger
 }
 
@@ -33,7 +33,7 @@ func NewServer(appLogic services.AppInterface, logger *platlogger.Client) {
 	router := gin.Default()
 
 	// health check route
-	router.GET("/health", func (c *gin.Context) {
+	router.GET("/health", func(c *gin.Context) {
 		c.String(200, "Health Check")
 	})
 
@@ -47,7 +47,7 @@ func NewServer(appLogic services.AppInterface, logger *platlogger.Client) {
 	}
 
 	srv = &http.Server{
-		Addr: port,
+		Addr:    port,
 		Handler: router,
 	}
 	if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {

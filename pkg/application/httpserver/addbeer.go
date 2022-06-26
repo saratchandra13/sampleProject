@@ -1,16 +1,15 @@
 package httpserver
 
 import (
-	"github.com/ShareChat/service-template/pkg/domain/services"
 	"github.com/gin-gonic/gin"
+	"github.com/saratchandra13/sampleProject/pkg/domain/services"
 	"net/http"
 )
 
-
 type AddBeerReq struct {
-	Name  string  `json:"name"`
+	Name         string  `json:"name"`
 	Manufacturer string  `json:"manufacturer"`
-	Price float64 `json:"price"`
+	Price        float64 `json:"price"`
 }
 
 type AddBeerRes struct {
@@ -37,5 +36,5 @@ func addBeer(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, "Failed")
 		return
 	}
-	c.JSON(http.StatusOK, &AddBeerRes{BeerId:beerId})
+	c.JSON(http.StatusOK, &AddBeerRes{BeerId: beerId})
 }

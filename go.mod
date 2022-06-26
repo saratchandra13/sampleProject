@@ -1,4 +1,4 @@
-module github.com/ShareChat/service-template
+module github.com/saratchandra13/sampleProject
 
 go 1.13
 

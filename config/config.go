@@ -2,33 +2,33 @@ package config
 
 import (
 	"encoding/json"
-	"github.com/ShareChat/service-template/third_party/assetmnger"
+	"github.com/saratchandra13/sampleProject/third_party/assetmnger"
 	"log"
 	"os"
 )
 
 const (
-	activeEnvKey = "ACTIVE_ENV"
-	production   = "PRODUCTION"
-	staging      = "STAGING"
-	prodFilePath = "config/prod.json"
-	stagFilePath = "config/stag.json"
+	activeEnvKey    = "ACTIVE_ENV"
+	production      = "PRODUCTION"
+	staging         = "STAGING"
+	prodFilePath    = "config/prod.json"
+	stagFilePath    = "config/stag.json"
 	deploymentIdKey = "DEPLOYMENT_ID"
-	hostNameKey = "HOSTNAME"
+	hostNameKey     = "HOSTNAME"
 )
 
 type Store struct {
 	Env struct {
-		ActiveEnv string `json:"active_env"`
+		ActiveEnv    string `json:"active_env"`
 		DeploymentId string `json:"deployment_id"`
-		HostName string `json:"host_name"`
+		HostName     string `json:"host_name"`
 	} `json:"env"`
 
 	DataSources struct {
 		UserSvc struct {
 			HttpEndpoint struct {
-				Url string `json:"url"`
-				Timeout int `json:"default_timeout"`
+				Url     string `json:"url"`
+				Timeout int    `json:"default_timeout"`
 			} `json:"http_endpoint"`
 		} `json:"user_svc"`
 		Database struct {

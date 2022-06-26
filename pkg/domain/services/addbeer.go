@@ -2,7 +2,7 @@ package services
 
 import (
 	"errors"
-	"github.com/ShareChat/service-template/pkg/domain/entity"
+	"github.com/saratchandra13/sampleProject/pkg/domain/entity"
 	"regexp"
 )
 

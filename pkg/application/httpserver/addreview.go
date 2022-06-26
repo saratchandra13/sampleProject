@@ -1,8 +1,8 @@
 package httpserver
 
 import (
-	"github.com/ShareChat/service-template/pkg/domain/services"
 	"github.com/gin-gonic/gin"
+	"github.com/saratchandra13/sampleProject/pkg/domain/services"
 	"net/http"
 )
 
@@ -16,7 +16,6 @@ type AddReviewRes struct {
 	ReviewId string `json:"reviewId"`
 }
 
-
 func addReview(c *gin.Context) {
 	userId := c.GetHeader("x-user-id")
 
@@ -27,7 +26,7 @@ func addReview(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, "Failed")
 		return
 	}
-	
+
 	var ri = services.ReviewInfo{
 		BeerId:        req.BeerId,
 		ReviewComment: req.ReviewComment,
@@ -39,5 +38,5 @@ func addReview(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, "internal server error")
 		return
 	}
-	c.JSON(http.StatusOK, &AddReviewRes{ReviewId:reviewId})
+	c.JSON(http.StatusOK, &AddReviewRes{ReviewId: reviewId})
 }

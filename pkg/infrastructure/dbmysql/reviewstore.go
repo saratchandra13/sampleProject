@@ -4,12 +4,12 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
-	"github.com/ShareChat/service-template/config"
-	"github.com/ShareChat/service-template/pkg/domain/entity"
-	"github.com/ShareChat/service-template/pkg/domain/entity/enterr"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/google/uuid"
 	"github.com/pkg/errors"
+	"github.com/saratchandra13/sampleProject/config"
+	"github.com/saratchandra13/sampleProject/pkg/domain/entity"
+	"github.com/saratchandra13/sampleProject/pkg/domain/entity/enterr"
 )
 
 type ReviewStore struct {

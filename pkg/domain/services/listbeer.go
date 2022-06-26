@@ -1,7 +1,7 @@
 package services
 
 import (
-	"github.com/ShareChat/service-template/pkg/domain/entity"
+	"github.com/saratchandra13/sampleProject/pkg/domain/entity"
 )
 
 type beerList []*entity.Beer
