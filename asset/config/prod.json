@@ -1,0 +1,18 @@
+{
+	"data_sources": {
+		"user_svc": {
+			"http_endpoint": {
+				"url": "http://user-service.sharechat.internal",
+				"default_timeout": 5
+			}
+		},
+		"database": {
+			"mysql": {
+				"host": "root",
+				"pass": "barney1b1",
+				"db_name": "production"
+			}
+		}
+	},
+	"project_id": "sharechat-production"
+}

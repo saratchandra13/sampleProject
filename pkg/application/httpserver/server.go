@@ -1,0 +1,62 @@
+package httpserver
+
+import (
+	"context"
+	"fmt"
+	"github.com/ShareChat/service-template/pkg/domain/services"
+	"github.com/ShareChat/service-template/third_party/platlogger"
+	"github.com/gin-gonic/gin"
+	"log"
+	"net/http"
+)
+
+const (
+	port = ":8000"
+)
+
+type interactor struct {
+	appLogic services.AppInterface
+	logger *platlogger.Client
+}
+
+func (i *interactor) populate(appLogic services.AppInterface, logger *platlogger.Client) {
+	i.appLogic  = appLogic
+	i.logger = logger
+}
+
+var appInteractor interactor
+var srv *http.Server
+
+func NewServer(appLogic services.AppInterface, logger *platlogger.Client) {
+	appInteractor.populate(appLogic, logger)
+
+	router := gin.Default()
+
+	// health check route
+	router.GET("/health", func (c *gin.Context) {
+		c.String(200, "Health Check")
+	})
+
+	// inject routes
+	v1 := router.Group("/v1")
+	{
+		v1.GET("/listBeer", listBeer)
+		v1.POST("/addBeer", addBeer)
+		v1.POST("/reviewBeer", addReview)
+		v1.POST("/listReview", listReview)
+	}
+
+	srv = &http.Server{
+		Addr: port,
+		Handler: router,
+	}
+	if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+		log.Fatalf("HTTP server ListenAndServe: %v", err)
+	}
+}
+
+func Shutdown(ctx context.Context) {
+	if err := srv.Shutdown(ctx); err != nil {
+		fmt.Println("Error in Shutdown", err)
+	}
+}
