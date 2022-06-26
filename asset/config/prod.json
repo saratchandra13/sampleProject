@@ -2,7 +2,7 @@
 	"data_sources": {
 		"user_svc": {
 			"http_endpoint": {
-				"url": "http://user-service.sharechat.internal",
+				"url": "http://user-service.dummy.internal",
 				"default_timeout": 5
 			}
 		},
@@ -14,5 +14,5 @@
 			}
 		}
 	},
-	"project_id": "sharechat-production"
+	"project_id": "dummy-production"
 }
