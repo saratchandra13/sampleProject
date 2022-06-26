@@ -16,17 +16,17 @@ import (
 )
 
 const (
-	serviceName = "service-template"
+	serviceName = "sampleProject"
 )
 
 func main() {
 	assetMng := assetmnger.Initialize()
-	var config *config.Store = config.NewConfig(assetMng)
+	var config = config.NewConfig(assetMng)
 	logger, _ := platlogger.NewLogger(serviceName, config, platlogger.ConsoleOutput(true), platlogger.StackDriverOutput(true))
 	var memStore = memory.NewMemoryStore()
 	var userSvc = rest.NewUserSvc(config)
 
-	var appLogic services.AppInterface = services.NewAppLogic(memStore, userSvc, logger)
+	var appLogic = services.NewAppLogic(memStore, userSvc, logger)
 
 	idleConnsClosed := make(chan struct{})
 	go func() {
