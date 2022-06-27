@@ -1,1 +1,1 @@
-This is a sample test project. Actual readme would be added post the discussion.
+ChatRoom, users and Messages CRUD apis.
