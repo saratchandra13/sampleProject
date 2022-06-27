@@ -8,12 +8,9 @@ const (
 )
 
 type User struct {
-	Id       string
-	Name     string
-	Handle   string
+	userId   string
+	userName string
 	Gender   string
-	Language string
-	Verified bool
 }
 
 func NewUser() *User {
@@ -26,5 +23,6 @@ func (u *User) PrettyPrint() []byte {
 }
 
 type UserRepo interface {
-	GetUser(string) (*User, error)
+	GetUser(userID string) (*User, error)
+	AddUser(userId string) (*User, error)
 }

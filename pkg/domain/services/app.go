@@ -2,24 +2,19 @@ package services
 
 import (
 	"github.com/saratchandra13/sampleProject/pkg/domain/entity"
-	"github.com/saratchandra13/sampleProject/third_party/platlogger"
+	"github.com/saratchandra13/sampleProject/pkg/infrastructure/memory"
 )
 
 type AppInterface interface {
-	ListVegetable() (VegetableList, error)
-	AddVegetable(*VegetableInfo) (string, error)
+	AddUserToChatroom(users entity.ChatRoomUsers) error
 }
 
 type appLogic struct {
-	VegetableRepo entity.VegetableRepo
-	userRepo      entity.UserRepo
-	logger        *platlogger.Client
+	memoryStore memory.InMemory
 }
 
-func NewAppLogic(vegetable entity.VegetableRepo, user entity.UserRepo, logger *platlogger.Client) AppInterface {
+func NewAppLogic(memStore *memory.InMemory) AppInterface {
 	return &appLogic{
-		VegetableRepo: vegetable,
-		userRepo:      user,
-		logger:        logger,
+		memoryStore: *memStore,
 	}
 }

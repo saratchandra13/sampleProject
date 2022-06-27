@@ -2,22 +2,17 @@ package httpserver
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/saratchandra13/sampleProject/pkg/domain/services"
+	"github.com/saratchandra13/sampleProject/pkg/domain/entity"
 	"net/http"
 )
 
-type AddVegetableReq struct {
-	Name   string  `json:"name"`
-	Seller string  `json:"Seller"`
-	Price  float64 `json:"price"`
+type AddUserToChatRoom struct {
+	UserId     string `json:"userId"`
+	ChatroomId string `json:"chatroomId"`
 }
 
-type AddVegetableRes struct {
-	VegetableId string `json:"VegetableId"`
-}
-
-func addVegetable(c *gin.Context) {
-	var req AddVegetableReq
+func JoinChatRoom(c *gin.Context) {
+	var req AddUserToChatRoom
 	err := c.Bind(&req)
 	if err != nil {
 		appInteractor.logger.Error("invalid request payload", err, &req)
@@ -25,16 +20,16 @@ func addVegetable(c *gin.Context) {
 		return
 	}
 
-	bi := services.VegetableInfo{
-		Name:   req.Name,
-		Seller: req.Seller,
-		Price:  req.Price,
+	request := entity.ChatRoomUsers{
+		UserId: req.UserId,
+		RoomId: req.ChatroomId,
 	}
-	VegetableId, err := appInteractor.appLogic.AddVegetable(&bi)
+
+	err = appInteractor.appLogic.AddUserToChatroom(request)
 	if err != nil {
-		appInteractor.logger.Error("failed to create vegetable entry", err, &req)
-		c.JSON(http.StatusInternalServerError, "Failed")
+		appInteractor.logger.Error("failed to add user to chatroom", err, &req)
+		c.JSON(http.StatusInternalServerError, err.Error())
 		return
 	}
-	c.JSON(http.StatusOK, &AddVegetableRes{VegetableId: VegetableId})
+	c.JSON(200, "ok")
 }

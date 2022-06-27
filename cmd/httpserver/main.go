@@ -6,7 +6,6 @@ import (
 	"github.com/saratchandra13/sampleProject/pkg/application/httpserver"
 	"github.com/saratchandra13/sampleProject/pkg/domain/services"
 	"github.com/saratchandra13/sampleProject/pkg/infrastructure/memory"
-	"github.com/saratchandra13/sampleProject/pkg/infrastructure/transport/rest"
 	"github.com/saratchandra13/sampleProject/third_party/assetmnger"
 	"github.com/saratchandra13/sampleProject/third_party/platlogger"
 	"os"
@@ -24,9 +23,8 @@ func main() {
 	var config = config.NewConfig(assetMng)
 	logger, _ := platlogger.NewLogger(serviceName, config, platlogger.ConsoleOutput(true), platlogger.StackDriverOutput(true))
 	var memStore = memory.NewMemoryStore()
-	var userSvc = rest.NewUserSvc(config)
 
-	var appLogic = services.NewAppLogic(memStore, userSvc, logger)
+	var appLogic = services.NewAppLogic(memStore)
 
 	idleConnsClosed := make(chan struct{})
 	go func() {

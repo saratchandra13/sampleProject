@@ -3,46 +3,20 @@ package services
 import (
 	"errors"
 	"github.com/saratchandra13/sampleProject/pkg/domain/entity"
-	"regexp"
 )
 
-var (
-	errInvalidName = errors.New("validationError: invalid input name")
-)
-
-type VegetableInfo struct {
-	Name   string  `json:"name"`
-	Seller string  `json:"seller"`
-	Price  float64 `json:"price"`
-}
-
-func (b *VegetableInfo) validate() error {
-	result, err := regexp.Match("[a-z]+", []byte(b.Name))
-	if err != nil || !result {
-		return errInvalidName
-	}
-	return nil
-}
-
-func (al *appLogic) AddVegetable(b *VegetableInfo) (string, error) {
-	err := b.validate()
-	if err != nil {
-		return "", err
+func (al *appLogic) AddUserToChatroom(users entity.ChatRoomUsers) error {
+	if len(users.RoomId) == 0 || len(users.UserId) == 0 {
+		return errors.New("not valid data")
 	}
 
-	// assuming we get calorie content from third party service
-	var calorieAmt = 5.5
-	VegetableMeta := &entity.Vegetable{
-		Name:         b.Name,
-		Seller:       b.Seller,
-		Price:        b.Price,
-		CalorieCount: calorieAmt,
+	if room, err := al.memoryStore.GetChatRoom(users.RoomId); err != nil {
+		return err
+	} else {
+		if room == nil {
+			return errors.New("no chatRoom Id found with this Id")
+		}
 	}
 
-	VegetableId, err := al.VegetableRepo.AddVegetable(VegetableMeta)
-	if err != nil {
-		return "", err
-	}
-
-	return VegetableId, nil
+	return al.memoryStore.AddUserToChatroom(users.UserId, users.RoomId)
 }
